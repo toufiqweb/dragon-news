@@ -4,6 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+
+  // fetch post information
+  const news = await getDetailsByNewsId(id);
+
+  return {
+    title: news.title,
+    description: news.details,
+  };
+}
+
 const NewsDetailsPage = async ({ params }) => {
   const { id } = await params;
   const news = await getDetailsByNewsId(id);
@@ -26,7 +38,6 @@ const NewsDetailsPage = async ({ params }) => {
 
           {/* Content */}
           <div className="p-6 md:p-10">
-          
             <div className="flex flex-wrap gap-3 mb-5">
               <span className="badge badge-primary badge-outline px-4 py-3">
                 Category {news.category_id}
@@ -40,7 +51,6 @@ const NewsDetailsPage = async ({ params }) => {
               )}
             </div>
 
-        
             <h1 className="text-2xl md:text-4xl font-bold leading-tight mb-6">
               {news.title}
             </h1>
