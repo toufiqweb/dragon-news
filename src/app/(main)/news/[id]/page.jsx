@@ -26,7 +26,7 @@ const NewsDetailsPage = async ({ params }) => {
 
           {/* Content */}
           <div className="p-6 md:p-10">
-            {/* Category + Trending */}
+          
             <div className="flex flex-wrap gap-3 mb-5">
               <span className="badge badge-primary badge-outline px-4 py-3">
                 Category {news.category_id}
@@ -40,7 +40,7 @@ const NewsDetailsPage = async ({ params }) => {
               )}
             </div>
 
-            {/* Title */}
+        
             <h1 className="text-2xl md:text-4xl font-bold leading-tight mb-6">
               {news.title}
             </h1>
