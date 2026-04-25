@@ -1,7 +1,8 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const RegisterPage = () => {
   const {
@@ -11,6 +12,7 @@ const RegisterPage = () => {
   } = useForm();
 
   // console.log(handleSubmit);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = async (data) => {
     const { name, email, photoURL, password } = data;
@@ -25,20 +27,19 @@ const RegisterPage = () => {
       callbackURL: "/dashboard",
     });
 
-    console.log(res , error);
-    
+    console.log(res, error);
+
     if (error) {
       alert(error.message);
     }
     if (res) {
       alert("Register successful");
     }
-    
   };
   return (
     <div className="min-h-[80vh]  py-5 flex items-center justify-center bg-base-200 px-4">
-      <div className="card w-full max-w-lg  bg-base-100 shadow-md p-15">
-        <h2 className="text-center text-4xl font-bold mb-4">
+      <div className="card w-full max-w-md  bg-base-100 shadow-md py-15 px-10">
+        <h2 className="text-center text-3xl font-bold mb-4">
           Register your account
         </h2>
 
@@ -48,13 +49,13 @@ const RegisterPage = () => {
           {/* Name */}
           <div className="space-y-2">
             <label className="label">
-              <span className="text-black font-semibold">Your Name</span>
+              <span className="text-black ">Your Name</span>
             </label>
             <input
               type="text"
               {...register("name", { required: true })}
               placeholder="Enter your name"
-              className="input  border-none bg-base-200 py-6 px-5 w-full font-semibold"
+              className="input  border-none bg-base-200 py-6 px-5 w-full "
             />
             {errors.name && (
               <span className="text-red-500">This field is required</span>
@@ -64,13 +65,13 @@ const RegisterPage = () => {
           {/* Photo URL */}
           <div className="space-y-2">
             <label className="label">
-              <span className="text-black font-semibold">Photo URL</span>
+              <span className="text-black ">Photo URL</span>
             </label>
             <input
               type="text"
               {...register("photoURL", { required: true })}
               placeholder="Enter photo URL"
-              className="input  border-none bg-base-200 py-6 px-5 w-full font-semibold"
+              className="input  border-none bg-base-200 py-6 px-5 w-full "
             />
             {errors.photoURL && (
               <span className="text-red-500">This field is required</span>
@@ -80,13 +81,13 @@ const RegisterPage = () => {
           {/* Email */}
           <div className="space-y-2">
             <label className="label">
-              <span className="text-black font-semibold">Email</span>
+              <span className="text-black ">Email</span>
             </label>
             <input
               type="email"
               {...register("email", { required: true })}
               placeholder="Enter your email address"
-              className="input  border-none bg-base-200 py-6 px-5 w-full font-semibold"
+              className="input  border-none bg-base-200 py-6 px-5 w-full "
             />
             {errors.email && (
               <span className="text-red-500">This field is required</span>
@@ -94,16 +95,25 @@ const RegisterPage = () => {
           </div>
 
           {/* Password */}
-          <div className="space-y-2">
+          <div className="space-y-2 ">
             <label className="label">
-              <span className="text-black font-semibold">Password</span>
+              <span className="text-black ">Password</span>
             </label>
-            <input
-              type="password"
-              {...register("password", { required: true })}
-              placeholder="Enter your password"
-              className="input  border-none bg-base-200 py-6 px-5 w-full font-semibold"
-            />
+            <div className="space-y-2 relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                {...register("password", { required: true })}
+                placeholder="Enter your password"
+                className="input  border-none bg-base-200  py-6 px-5 w-full"
+              />
+
+              <span
+                className="absolute top-4 right-4 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </span>
+            </div>
             {errors.password && (
               <span className="text-red-500">This field is required</span>
             )}

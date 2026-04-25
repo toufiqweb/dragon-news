@@ -1,8 +1,10 @@
+"use client";
 import Link from "next/link";
 import React from "react";
-import userLogo from "@/assets/user.png"
+import userLogo from "@/assets/user.png";
 import Image from "next/image";
 import NavLink from "./NavLink";
+import { authClient } from "@/lib/auth-client";
 
 const Navbar = () => {
   const navLinks = (
@@ -12,6 +14,9 @@ const Navbar = () => {
       <NavLink href={"/career"}>Career</NavLink>
     </>
   );
+
+  const { data: session, isPending } = authClient.useSession();
+  const user = session?.user;
 
   return (
     <div className="navbar container mx-auto">
@@ -44,12 +49,43 @@ const Navbar = () => {
         <div></div>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1 gap-5 text-black/70">{navLinks}</ul>
+        <ul className="menu menu-horizontal px-1 gap-5 text-black/70">
+          {navLinks}
+        </ul>
       </div>
-      <div className="navbar-end gap-4">
-        <Image src={userLogo} alt={"user"}/>
-        <Link href={"/login"}><button className="btn btn-neutral bg-gray-700">Login</button></Link>
-      </div>
+
+      {isPending ? (
+        <div className="navbar-end gap-4">
+          <div className="skeleton h-10 w-10 rounded-full"></div>
+          <div className="skeleton h-10 w-20 rounded-lg"></div>
+        </div>
+      ) : (
+        <div className="navbar-end gap-4">
+          {user && <p>Hello, {user?.name} !</p>}
+          <Image
+            src={user ? user?.image : userLogo}
+            alt={"user"}
+            width={48}
+            height={48}
+            className="rounded-full h-10 w-10 object-cover"
+          />
+
+          {user ? (
+            <Link href={"/login"}>
+              <button
+                onClick={async () => await authClient.signOut()}
+                className="btn text-white bg-red-500"
+              >
+                Logout
+              </button>
+            </Link>
+          ) : (
+            <Link href={"/login"}>
+              <button className="btn btn-neutral bg-gray-700">Login</button>
+            </Link>
+          )}
+        </div>
+      )}
     </div>
   );
 };

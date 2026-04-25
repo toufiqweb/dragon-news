@@ -1,7 +1,9 @@
 "use client";
 import { authClient } from "@/lib/auth-client";
-import React from "react";
+import Link from "next/link";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const LoginPage = () => {
   const {
@@ -10,12 +12,13 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
+  const [showPassword, setShowPassword] = useState(false);
   // const handleLogin = (data) => console.log(data);
 
   const handleLogin = async (data) => {
     const { email, password } = data;
 
-    console.log(data);
+    // console.log(data);
 
     const { data: res, error } = await authClient.signIn.email({
       email: email, // user email address
@@ -41,8 +44,8 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-base-200 px-4 my-10">
-      <div className="card w-full max-w-lg  bg-base-100 shadow-md p-15">
-        <h2 className="text-center text-4xl font-bold mb-4">
+      <div className="card w-full max-w-md  bg-base-100 shadow-md py-15 px-10">
+        <h2 className="text-center text-3xl font-bold mb-4">
           Login your account
         </h2>
 
@@ -52,13 +55,13 @@ const LoginPage = () => {
           {/* Email */}
           <div className="space-y-2">
             <label className="label">
-              <span className="text-black font-semibold">Email</span>
+              <span className="text-black ">Email</span>
             </label>
             <input
               type="email"
               {...register("email", { required: true })}
               placeholder="Enter your email address"
-              className="input  border-none bg-base-200 py-6 px-5 w-full font-semibold"
+              className="input  border-none bg-base-200 py-6 px-5 w-full "
             />
             {errors.email && (
               <span className="text-red-500">This field is required</span>
@@ -66,16 +69,25 @@ const LoginPage = () => {
           </div>
 
           {/* Password */}
-          <div className="space-y-2">
+          <div className="space-y-2 ">
             <label className="label">
-              <span className="text-black font-semibold">Password</span>
+              <span className="text-black ">Password</span>
             </label>
-            <input
-              type="password"
-              {...register("password", { required: true })}
-              placeholder="Enter your password"
-              className="input  border-none bg-base-200 font-semibold py-6 px-5 w-full"
-            />
+            <div className="space-y-2 relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                {...register("password", { required: true })}
+                placeholder="Enter your password"
+                className="input  border-none bg-base-200  py-6 px-5 w-full"
+              />
+
+              <span
+                className="absolute top-4 right-4 cursor-pointer"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEye /> : <FaEyeSlash />}
+              </span>
+            </div>
             {errors.password && (
               <span className="text-red-500">This field is required</span>
             )}
@@ -85,6 +97,12 @@ const LoginPage = () => {
           <button type="submit" className="btn btn-neutral w-full mt-2">
             Login
           </button>
+          <p className="font-semibold text-sm text-black/70 text-center">
+            Dont’t Have An Account ?{" "}
+            <Link href={"/register"} className="text-red-500">
+              Register
+            </Link>
+          </p>
         </form>
       </div>
     </div>
