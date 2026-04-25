@@ -1,4 +1,5 @@
 import LeftSideBar from "@/components/homepage/news/LeftSideBar";
+import NewsCard from "@/components/homepage/news/NewsCard";
 import RightSideBar from "@/components/homepage/news/RightSideBar";
 import { getCategory, getNesByCategoryId } from "@/lib/data";
 import React from "react";
@@ -15,15 +16,11 @@ const NewCategoryPage = async ({ params }) => {
       <div className="col-span-3">
         <LeftSideBar categories={categories} activeId={id} />
       </div>
-      <div className="col-span-6 ">
-        <h1>Dragon News Home </h1>
+      <div className="col-span-6 space-y-5">
+        <h1 className="text-lg font-semibold">Dragon News </h1>
         <div className="flex flex-col gap-5">
           {news.length > 0 ? (
-            news.map((n) => (
-              <span key={n._id} className="p-4  border-2  rounded-xl ">
-                {n.title}
-              </span>
-            ))
+            news.map((n) => <NewsCard key={n._id} news={n}></NewsCard>)
           ) : (
             <div>
               <h1 className="text-xl text-center my-5">No data is here</h1>
