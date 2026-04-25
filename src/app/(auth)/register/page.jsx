@@ -1,4 +1,5 @@
-"use client"
+"use client";
+import { authClient } from "@/lib/auth-client";
 import React from "react";
 import { useForm } from "react-hook-form";
 
@@ -8,9 +9,34 @@ const RegisterPage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const handleRegister = (data) => console.log(data);
+
+  // console.log(handleSubmit);
+
+  const handleRegister = async (data) => {
+    const { name, email, photoURL, password } = data;
+
+    console.log(data);
+
+    const { data: res, error } = await authClient.signUp.email({
+      email: email, // user email address
+      password: password, // user password -> min 8 characters by default
+      name: name, // user display name
+      image: photoURL, // User image URL (optional)
+      callbackURL: "/dashboard",
+    });
+
+    console.log(res , error);
+    
+    if (error) {
+      alert(error.message);
+    }
+    if (res) {
+      alert("Register successful");
+    }
+    
+  };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
+    <div className="min-h-[80vh]  py-5 flex items-center justify-center bg-base-200 px-4">
       <div className="card w-full max-w-lg  bg-base-100 shadow-md p-15">
         <h2 className="text-center text-4xl font-bold mb-4">
           Register your account
@@ -44,7 +70,7 @@ const RegisterPage = () => {
               type="text"
               {...register("photoURL", { required: true })}
               placeholder="Enter photo URL"
-               className="input  border-none bg-base-200 py-6 px-5 w-full font-semibold"
+              className="input  border-none bg-base-200 py-6 px-5 w-full font-semibold"
             />
             {errors.photoURL && (
               <span className="text-red-500">This field is required</span>
@@ -74,7 +100,7 @@ const RegisterPage = () => {
             </label>
             <input
               type="password"
-              {...register("email", { required: true })}
+              {...register("password", { required: true })}
               placeholder="Enter your password"
               className="input  border-none bg-base-200 py-6 px-5 w-full font-semibold"
             />
