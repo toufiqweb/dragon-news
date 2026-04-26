@@ -12,7 +12,7 @@ const NewCategoryPage = async ({ params }) => {
   const news = await getNesByCategoryId(id);
 
   return (
-    <div className="  container mx-auto grid grid-cols-12 gap-5 my-10">
+    <div className=" h-screen container mx-auto grid grid-cols-12 gap-5 my-10">
       <div className="col-span-3">
         <LeftSideBar categories={categories} activeId={id} />
       </div>
