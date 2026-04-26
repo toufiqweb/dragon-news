@@ -61,13 +61,13 @@ const Navbar = () => {
         </div>
       ) : (
         <div className="navbar-end gap-4">
-          {user && <p>Hello, {user?.name} !</p>}
+          {user && <p className="hidden sm:inline-block">Hello, {user?.name} !</p>}
           <Image
             src={user ? user?.image : userLogo}
             alt={"user"}
             width={48}
             height={48}
-            className="rounded-full h-10 w-10 object-cover"
+            className="rounded-full h-8 sm:h-10 w-8 sm:w-10 object-cover"
           />
 
           {user ? (

@@ -12,15 +12,17 @@ const NewCategoryPage = async ({ params }) => {
   const news = await getNesByCategoryId(id);
 
   return (
-    <div className=" min-h-[80vh] container mx-auto grid grid-cols-12 gap-5 my-10">
-      <div className="col-span-3">
+    <div className="min-h-[80vh] container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-5 my-10 px-4">
+      <div className="lg:col-span-3 order-2 lg:order-1">
         <LeftSideBar categories={categories} activeId={id} />
       </div>
-      <div className="col-span-6 space-y-5">
-        <h1 className="text-lg font-semibold">Dragon News </h1>
+
+      <div className="lg:col-span-6 order-1 lg:order-2 space-y-5">
+        <h1 className="text-lg font-semibold">Dragon News</h1>
+
         <div className="flex flex-col gap-5">
           {news.length > 0 ? (
-            news.map((n) => <NewsCard key={n._id} news={n}></NewsCard>)
+            news.map((n) => <NewsCard key={n._id} news={n} />)
           ) : (
             <div>
               <h1 className="text-xl text-center my-5">No data is here</h1>
@@ -28,7 +30,8 @@ const NewCategoryPage = async ({ params }) => {
           )}
         </div>
       </div>
-      <div className="col-span-3 mx-5">
+
+      <div className="lg:col-span-3 order-3 mx-0 lg:mx-5">
         <RightSideBar />
       </div>
     </div>
