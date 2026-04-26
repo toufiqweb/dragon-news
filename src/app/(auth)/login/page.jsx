@@ -43,7 +43,7 @@ const LoginPage = () => {
   //   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-base-200 px-4 my-10">
+    <div className="min-h-[80vh] flex items-center justify-center bg-base-200 px-4 py-10">
       <div className="card w-full max-w-md  bg-base-100 shadow-md py-15 px-10">
         <h2 className="text-center text-3xl font-bold mb-4">
           Login your account
