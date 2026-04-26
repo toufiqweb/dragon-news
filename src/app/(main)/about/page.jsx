@@ -1,3 +1,4 @@
+import AboutFeatures from "@/components/aboutpage/AboutFeatures";
 import AboutHero from "@/components/aboutpage/AboutHero";
 import AboutStory from "@/components/aboutpage/AboutStory";
 
@@ -12,6 +13,8 @@ const AboutPage = () => {
       <AboutHero />
       {/* Story section */}
       <AboutStory/>
+      {/* Features section */}
+      <AboutFeatures/>
 
     </div>
   );
