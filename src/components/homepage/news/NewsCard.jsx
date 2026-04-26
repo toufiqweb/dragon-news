@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const NewsCard = ({ news }) => {
   return (
-    <div className="w-full  bg-base-100 rounded-xl shadow-md border border-base-200 overflow-hidden">
+    <div className="w-full  bg-base-100 rounded-xl shadow-md border border-base-200 ">
       {/* Header */}
       <div className="flex items-center justify-between p-4 bg-base-200">
         <div className="flex items-center gap-3">
