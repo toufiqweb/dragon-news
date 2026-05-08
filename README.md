@@ -22,7 +22,7 @@ The project focuses on a smooth user experience, responsive UI, secure authentic
 
 ## 📸 Screenshot
 
-![Dragon News](https://i.ibb.co.com/WN0fByDZ/image-670b6915.png)D
+![Dragon News](https://i.ibb.co.com/rRxbFd6k/dragon-news-mockup.png)D
 
 
 ## ✨ Features
